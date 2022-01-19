@@ -46,16 +46,6 @@ app.use(helmet());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
-// const store = MongoStore.create({
-//     mongoUrl: dbUrl,
-//     secret: secret,
-//     touchAfter: 24 * 60 * 60
-// });
-
-store.on("error", function (e) {
-    console.log("SESSION STORE ERROR", e)
-})
-
 const scriptSrcUrls = [
     "https://api.tiles.mapbox.com/",
     "https://api.mapbox.com/",
