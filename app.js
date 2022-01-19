@@ -16,7 +16,7 @@ const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require('helmet');
 
-const MongoDBStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo");
 const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/camp-us";
 
 const userRoutes = require("./routes/users");
@@ -46,8 +46,8 @@ app.use(helmet());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
-const store = new MongoDBStore({
-    url: dbUrl,
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
     secret,
     touchAfter: 24 * 60 * 60
 });
@@ -90,7 +90,7 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                "https://res.cloudinary.com/des4kcezr/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://res.cloudinary.com/des4kcezr/",
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
