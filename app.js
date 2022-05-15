@@ -42,11 +42,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
-app.use(helmet());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
     "https://api.tiles.mapbox.com/",
     "https://api.mapbox.com/",
     "https://kit.fontawesome.com/",
@@ -54,11 +54,13 @@ const scriptSrcUrls = [
     "https://cdn.jsdelivr.net",
 ];
 const styleSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
     "https://kit-free.fontawesome.com/",
     "https://api.mapbox.com/",
     "https://api.tiles.mapbox.com/",
     "https://fonts.googleapis.com/",
     "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net/"
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com/",
@@ -66,7 +68,7 @@ const connectSrcUrls = [
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
 ];
-const fontSrcUrls = [];
+const fontSrcUrls = ["https://res.cloudinary.com/des4kcezr/"];
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -84,6 +86,8 @@ app.use(
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
+            mediaSrc: ["https://res.cloudinary.com/des4kcezr/"],
+            childSrc: ["blob:" ]
         },
     })
 );
